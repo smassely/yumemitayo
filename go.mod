@@ -1,4 +1,4 @@
-module drinkwater
+module gridstuff
 
 go 1.26.1
 
