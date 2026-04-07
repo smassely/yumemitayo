@@ -98,6 +98,7 @@ func main() {
 			cards = append(cards, *newCard(*gameGrid, *newPos(int32(cardx), int32(cardy))))
 		}
 	}
+
 	for !rl.WindowShouldClose() {
 		for card := 0; card < len(cards); card++ {
 			c := &cards[card]
@@ -110,7 +111,6 @@ func main() {
 					case eraser:
 						c.color = rl.Black
 					}
-
 				}
 			} else {
 				c.hover = false
@@ -137,5 +137,4 @@ func main() {
 		}
 		rl.EndDrawing()
 	}
-
 }
