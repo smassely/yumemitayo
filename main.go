@@ -115,8 +115,6 @@ func main() {
 
 	windowWidth := (gameGrid.width)*gameGrid.block_size + gameGrid.grid_start.x*2
 	windowHeight := (gameGrid.height)*gameGrid.block_size + gameGrid.grid_start.y*2
-	tool := pen
-	mousepos := rl.GetMousePosition()
 
 	
 	// ==Game Event Loop==
@@ -124,6 +122,8 @@ func main() {
 	//os.Unsetenv("WAYLAND_DISPLAY")
 	rl.InitWindow(windowWidth, windowHeight, "gridstuff")
 	defer rl.CloseWindow()
+	rl.SetConfigFlags(rl.FlagWindowResizable)
+	
 	// ==Texture Loading ==
 
 	img := rl.LoadImage("./texture.png")
@@ -147,28 +147,7 @@ func main() {
 				cards = append(cards, *newCard(*gameGrid, *newPos(int32(cardx), int32(cardy))))
 			}
 		}
-		mousepos = rl.GetMousePosition()
-		for card := 0; card < len(cards); card++ {
-			c := &cards[card]
-			if checkCardInteraction(c,mousepos) {
-				c.hover = true
-				if rl.IsMouseButtonDown(rl.MouseButtonLeft) {
-					switch tool {
-					case pen:
-						c.color = rl.DarkGreen
-					case eraser:
-						c.color = rl.Black
-					}
-				}
-			} else {
-				c.hover = false
-			}
-		}
 		
-		if rl.IsKeyPressed(rl.KeyA) {
-			tool++
-			tool = tool % max
-		}
 		if rl.IsKeyPressed(rl.KeyRight){
 				gameGrid.width++
 				cards = make([]card, 0)
